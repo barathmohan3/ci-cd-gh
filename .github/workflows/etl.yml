@@ -1,0 +1,29 @@
+name: Simple ETL CI/CD
+
+on: [push]
+
+jobs:
+  etl-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run ETL
+        run: |
+          python extract.py
+          python transform.py
+          python load.py
+
+      - name: Run Tests
+        run: pytest -v test_transform.py
+
+      - name: Deploy (simulate)
+        run: echo "🚀 Deploying ETL job to Production..."
