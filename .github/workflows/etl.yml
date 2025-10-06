@@ -22,6 +22,9 @@ jobs:
           python transform.py
           python load.py
 
+      - name: Show target.csv
+        run: cat target.csv
+
       - name: Run Tests
         run: pytest -v test_transform.py
 
